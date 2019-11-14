@@ -39,7 +39,7 @@
 				handlerClick(e){
 					e.stopPropagation();
 					console.log('点击删除按钮');
-					this.$emit('delete', this.title)
+					this.$emit('delete', this.title, 0)
 				}
 			}
 		})
@@ -64,8 +64,8 @@
 				}
 			},
 			methods: {
-				handlerDelete(val){
-					console.log('handlerDelete ',val);
+				handlerDelete(val, flag){
+					console.log('handlerDelete ',val,' 状态 ',flag);
 				}
 			}
 		})
