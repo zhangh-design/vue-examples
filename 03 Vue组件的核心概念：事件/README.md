@@ -4,7 +4,7 @@
 
 那这里是Vue官方文档中提供的一个示例：
 
-> 我们给一个 Button 绑定了一个 click 的事件，当点击 click 的时候它会执行这个 `counter+1` 的操作。
+> 我们给一个 Button 绑定了一个 click 的事件，当点击 click 的时候它会执行这个 `counter+1` 语句的操作。
 
 这里官方文档中是有一个可以直接在线点击的示例，我们看一下我们这样点击后这里会出现一个点击的次数。
 ```
@@ -30,7 +30,7 @@ var example1 = new Vue({
 
 ## 绑定事件
 
-那我们现在知道我们原来的 todo-list 这里有个删除来给它绑定一个方法我们使用简写的形式：
+那我们现在知道我们原来的 todo-item 这里有个删除来给它绑定一个方法我们使用简写的形式：
 
 ```
 Vue.component('todo-item',{
@@ -60,7 +60,7 @@ Vue.component('todo-item',{
 ```
 这是给原生 Dom 绑定事件的方式。
 
-那对于我们自定义的组件我们给它绑定事件同样也是通过@的一个形式那我们 todo-item 这里是点击了删除，那我们给 todo-item起一个删除的自定义事件叫 @delete="handlerDelete"同样我们要把它写在 todo-list的 methods 里面，那这个时候我们点击我们的删除按钮的时候它还不能触发我们的这个 delete 的事件，那这时候我们需要自己手动的去把这个事件给抛出来我们通过 this.$emit 那这个$emit('delete', this.title) 的第一个参数这个名称的话就是对应的我们这个todo-item上面绑定的这个 delete 事件，那第二个参数的话就是我们要传递的参数(这里外面把title给传出去)，这里如果你有其它的参数可以在后面持续的加入，那这个时候我们就可以在 handlerDelete 里面拿到传出来的事件参数。
+那对于我们自定义的组件我们给它绑定事件同样也是通过@的一个形式那我们 todo-item 这里是点击了删除，那我们给 todo-item起一个删除的自定义事件叫 @delete="handlerDelete"同样我们要把它写在 todo-list的 methods 里面，那这个时候我们点击我们的删除按钮的时候它还不能触发我们的这个 delete 的事件，那这时候我们需要自己手动的去把这个事件给抛出来我们通过 this.$emit 那这个$emit('delete', this.title) 的第一个参数这个名称的话就是对应的我们这个todo-item上面绑定的这个 delete 事件，那第二个参数的话就是我们要传递的参数(这里我们把 title 给传出去)，这里如果你有其它的参数可以在后面持续的加入它是一个可变参，那这个时候我们就可以在 handlerDelete 里面拿到传出来的事件参数。
 
 ```
 Vue.component('todo-item',{
@@ -115,8 +115,8 @@ Vue.component('todo-list',{
 	}
 })
 ```
-点击删除按钮触发了 handlerClick 这个方法然后通过 this.$emti 的形式抛出了一个 delete 的自定义事件并且往外传递了一个 this.title 这个参数
-，然后使用这个 todo-item 的时候给它绑定了这个delete的事件我们就可以在 handlerDelete 这个方法中去获取到我们传递出来的这个值 比如 val就是this.title。
+点击删除按钮触发了 handlerClick 这个方法然后通过 this.$emit 的形式抛出了一个 delete 的自定义事件并且往外传递了一个 this.title 这个参数
+，然后使用这个 todo-item 的时候给它绑定了这个delete的事件我们就可以在 handlerDelete 这个方法中去获取到我们传递出来的这个值 比如 val 就是 this.title 。
 
 ---
 那除此之外的话我知道在 Dom 事件中还有一些阻止冒泡啊键盘事件这些特殊的处理，那Vue中同样给我们提供了一些简写的方法。
@@ -134,7 +134,7 @@ Vue.component('todo-list',{
 - .once
 - .passive
 
-我们在 click 后面加一个 .stop 它就是自动的帮我们阻止冒泡，那如果你不加这个 .stop 的话就要自己在 handlerClick 里面获取 button 的对象手动调用 stopPropagation 方法，那Vue中我们可以使用它提供的一些简写的形式直接 .stop 它会自动的帮我们阻止掉冒泡的这个行为。
+我们在 click 后面加一个 .stop 它就是自动的帮我们阻止冒泡，那如果你不加这个 .stop 的话就要自己在 handlerClick 里面获取 button 的Dom对象手动调用 stopPropagation 方法，那Vue中我们可以使用它提供的一些简写的形式直接 .stop 它会自动的帮我们阻止掉冒泡的这个行为。
 
 ```
 handlerClick(e){
