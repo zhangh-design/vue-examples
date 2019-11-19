@@ -13,12 +13,12 @@
 我们直接看我们的这一个代码：
 ```
 <ul>
-			<li v-for="item in list">
-				<span v-if="!item.del">{{item.title}}</span>
-				<span v-else style="text-decoration: line-through;">{{item.title}}</span>
-				<button v-show="!item.del">删除</button>
-			</li>
-		</ul>
+	<li v-for="item in list">
+		<span v-if="!item.del">{{item.title}}</span>
+		<span v-else style="text-decoration: line-through;">{{item.title}}</span>
+		<button v-show="!item.del">删除</button>
+	</li>
+</ul>
 ```
 如果说没有组件我们一直在我们的Hml中去扩展我们的功能，不停的扩展功能我们现在只是一个简单的todo-list，这时候我可能在一个页面中不仅仅只有一个todo-list，有很多地方都需要这个todo-list所以说我希望把这一个todo-list甚至说包括这个todo-item把它变成一个可以复用的如果我还有其它的需求可以直接复用这一段代码。
 
