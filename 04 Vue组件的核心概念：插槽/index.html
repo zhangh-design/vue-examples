@@ -15,8 +15,12 @@
 		</ul> -->
 		<todo-list>
 				<todo-item @delete="handlerDelete" v-for="item in list" :title="item.title" :del="item.del">
-					<span slot="pre-icon">前置图标</span>
-					<span slot="suf-icon">后置图标</span>
+					<template v-slot:pre-icon="{value}">
+						<span>前置图标 {{value}}</span>
+					</template>
+					<!-- <template v-slot:suf-icon>
+						<span>后置图标</span>
+					</template> -->
 				</todo-item>
 		</todo-list>
 	</div>
@@ -32,15 +36,17 @@
 			},
 			template: `
 			<li>
-				<slot name="pre-icon"></slot>
+				<slot name="pre-icon" :value="value_v"></slot>
 				<span v-if="!del">{{title}}</span>
 				<span v-else style="text-decoration: line-through;">{{title}}</span>
-				<slot name="suf-icon"></slot>
+				<slot name="suf-icon"><(*￣▽￣*)/</slot>
 				<button v-show="del" @click="handlerClick">删除</button>
 			</li>
 			`,
 			data: function(){
-				return {}
+				return {
+					value_v: Math.random()
+				}
 			},
 			mounted() {},
 			methods: {
