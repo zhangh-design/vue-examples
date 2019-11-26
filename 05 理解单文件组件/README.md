@@ -27,14 +27,80 @@ vue create hello-world
 我们的环境一旦安装完成之后后续基本上不会有大的改动了，那现在我们安装完成之后 `vue-demo` 的一个目录基本上是这样的一个形式：
 ![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/05%20%E7%90%86%E8%A7%A3%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6/1.png)
 
+```
+"scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  }
+```
+我们现在可以通过 `npm run serve` 去启动这样的一个服务，那接下来我们把 `todo-list` 然后改成单文件组件的形式。
+
+那 `main.js` 的话是我们的一个入口文件那这里的话和我们 `CDN` 的这种方式写的 new 这个实例的时候我们用的是 `el` 这种形式和它这里用的是这种 链式 的形式除了写法不一样外本质上是一样的这个我们不用在意。
+
+```
+new Vue({
+  render: h => h(App),
+}).$mount('#app')
+
+var vm = new Vue({
+	el: '#app',
+	data: {
+		message: 'hello world'
+	}
+})
+
+```
+那接下来就是我们的这个 `App` 组件接下来我们就是直接改我们的 `APP` 里面的东西，那 `APP.vue` 实际上就是第一个单文件组件了它就是一个单个的文件这个文件就是我们的组件。
+
+那我们把之前在HTML中写的 Vue实例中的 data 和 methods 放到 App.vue 中。
+这里有一个区别是原来我们的 data 只是一个对象但现在变成了一个方法返回一个对象那这也是我们之前讲到的因为 `App.vue` 已经不是我们的根实例了那根实例是在我们的 main.js 的new Vue里面，那这个`App.vue`有可能会被复用所以必须使用方法的形式来去返回它。
+
+分别建立我们的 `todo-item`、`todo-list` 的单文件组件，
+那我们在App.vue中去引入我们的 `TodoList.vue`和`TodoItem.vue`组件，那同样我们现在也需要去注册那注册的方式的话不再需要`Vue.component(name, {})`的形式注册了而是我们直接在这个`export default`的对象里面有一个`components`的 key 在这里去注册我们的 `TodoLitem`和`TodoItem`这个时候这个`TodoLitem`和`TodoItem`它就不是全局的了而是只在当前的 `App.vue`这个作用域里面可以使用。
+
+```
+import TodoList from './components/TodoList.vue'
+import TodoItem from './components/TodoItem.vue'
+
+export default {
+    components: {
+        TodoList,
+        TodoItem
+    }
+   data(){
+       return {
+           //...
+       }
+   } 
+}
+
+```
+运行后看网页那我们现在看到我们的代码就已经和我们原来使用`CDN`方式创建的效果是一样了：
+![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/05%20%E7%90%86%E8%A7%A3%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6/2.png)
+
+每次改动代码也不用刷新浏览器了这也是我们`Cli`提供给我们的功能，我们现在的这些组建都是局部作用域的它们只在当前的`App.vue`中生效那如果你还是想把这个`TodoItem`做为是全局的那也没关系你依然可以使用我们的全局注册`Vue.component(name, {})`也可以的，我们在`main.js`中把`TodoList`组建给`import`进来我们依然可以全局注册我们的组件
+
+```
+import TodoList from './components/TodoList.vue'
+
+Vue.component('todo-list', TodoList)
+```
+
+我们前面还提到了我们`Css`的一个组件化问题，那组件化的话可以给我们的当前的组建写样式它并不会污染我们其它的组件，需要加一个 `scoped`
 
 
+```
+<style scoped>
+.red{
+    color: red;
+}
+</style>
+```
+我们可以看到这个`class`是`red`但是这个生成的样式它后面还带了`data-v-hash`值也就是我们通过 `scope` 来写的样式它会帮助我们生成一个`hash`它只会对当前的这个组件生效而不会去污染我们其它的样式。
 
+![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/05%20%E7%90%86%E8%A7%A3%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6/3.png)
 
-
-
-
-
-
-
+### 结语
+那这就是我们的单文件组件相较于我们通过 `CDN`的方式引入直接在HTML里面去书写组件它的确是给我们带来了很大的一个便利程度除了我们在搭建开发环境的时候所花费一点时间之外其它的给我们带来的便利程度绝对是超值的所以说推荐大家在真实的项目中还去使用我们的单文件组件去进行真实的项目开发。
 
