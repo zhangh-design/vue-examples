@@ -39,7 +39,7 @@ export default {
     }
 }
 ```
-那对于`input`标签`v-model`是`value`属性和`input`事件的简写那还有我们常用的`checkbox`，`radio`和`select`那他们都有对应的属性和事件那这一块的话我们的官方文档中有详细的说明。
+那对于`input`标签`v-model`是`value`属性和`input`事件的简写那还有我们常用的`checkbox`，`radio`和`select`那它们都有对应的属性和事件那这一块的话我们的官方文档中有详细的说明。
 
 v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
 
@@ -49,7 +49,7 @@ v-model 在内部为不同的输入元素使用不同的属性并抛出不同的
 
 那除了原生事件之外那想要自定义组件支持我们的`v-model`我们需要配置一个`model`对象，那只有这样我们可以看下官方文档那它这个是把`input`在次封装成了一个`base-checkbox`。
 
-我们要定义一个`model`对象来去指明一个属性和一个事件
+我们要定义一个`model`对象来去指明一个属性和一个事件。
 ```
 Vue.component('base-checkbox',{
     model: {
@@ -65,7 +65,6 @@ Vue.component('base-checkbox',{
         v-bind:checked="checked"
         v-on:change="$emit('change', $event.target.checked)"
     `
-    
 })
 ```
 
