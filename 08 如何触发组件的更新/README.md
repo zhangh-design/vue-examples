@@ -78,12 +78,46 @@
 同样在控制台我们看到控制台这里我打出了一个`log` `this.info 发生了变化，但是并没有触发子组件更新 {number: 1, __ob__: Observer}`。
 
 上面两个示例都没有触发视图的更新，我们看一下代码是怎么写的：
-我们`change this.name`的按钮事件是`handleNameChange`我们在这里改变了`this.name`这个`name`我们是申明在了`data(){this.name=name;}`里面，在看这个`info`是怎么写的，`info`这里我们是直接改变了`this.info.number=1`这个`info`是在`data(){return {info: {}}}`里面的一个字段它是一个空对象但我改变的时候只是改变了`number`这时候这两种情况它是并不会触发我们组件的一个更新的，那为什么呢？第一个是因为我们的`name`并没有做响应式，第二个`this.info.number`这个响应式只是存在在了`info`上面我们`info`下面的在进一步的一个数据字段是没有去做的，我们如何去把它变成是响应式的呢？很简单可以直接把`name`把它放到我们的`return {name: name}`里面，那`info`的话我们可以
+我们`change this.name`的按钮事件是`handleNameChange`我们在这里改变了`this.name`这个`name`我们是申明在了`data(){this.name=name;}`里面，在看这个`info`是怎么写的，`info`这里我们是直接改变了`this.info.number=1`这个`info`是在`data(){return {info: {}}}`里面的一个字段它是一个空对象但我改变的时候只是改变了`number`这时候这两种情况它是并不会触发我们组件的一个更新的，那为什么呢？第一个是因为我们的`name`并没有做响应式，第二个`this.info.number`这个响应式只是存在在了`info`上面我们`info`下面的在进一步的一个数据字段是没有去做的，我们如何去把它变成是响应式的呢？很简单可以直接把`name`把它放到我们的`return {name: name}`里面，那`info`的话我们只需要把我们的`number`提前声明然后我们`data`实例化的时候就会对`name`和`info.numner`下面的这些字段进行响应式的一个设置。
 
+修改后的示例：
+```
+data(){
+    return {
+        name: name,
+        info: {
+            number: undefined
+        }
+    }
+}
+```
+那这时候我们再看我们的demo，我点击 `change this.name`我们屏幕上面这个`name`已经做了一些变化对的每次点击都会进行响应式的变化，点击`change this.info`的时候也是同样。
 
+还有第三个按钮是改变我们的`list`你会看到它每次都会去改变，而这个`list`我们直接是`push`了而正常情况下我们的`list`是一个数组嘛你push并不会改变原数组的这时候它是怎么去做更新的呢这一块我们留给大家去思考。
 
+```
+<template>
+    <div>
+        <button @click="handleListChange">change this.list</button>
+        <p>props.list: {{ list }}</p>
+    </div>
+</template>
+<script>
+    data(){
+        return {
+            list: []
+        }
+    },
+    methods: {
+        handleListChange () {
+          this.list.push(1, 2, 3)
+          console.log('this.list 并没有发生变化，但是触发了子组件更新', this.list)
+        }
+    }
+</script>
+```
 
-
+我们这里还有这样一个按钮`changedata.b`我们现在点击这个按钮我们发现控制台输出`data.b发生了变化，但是并没有触发组件更新 vue1575473185843`，我们看下代码是怎么写的事件`handleBChange`我点击这个按钮的时候触发这个方法在这个方法内我改变了`this.b`而这个`b`是在`data`里面的但是它并没有出发我组件的一个更新
 
 
 
