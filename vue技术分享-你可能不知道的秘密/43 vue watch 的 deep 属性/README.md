@@ -45,7 +45,7 @@ export default {
 
 此时可以用`deep`，因为用`watch`去监测`obj`，只有`obj`发生变化才会触发，如果是`obj.name`变化则没反应，如果用`deep`的话，表示可以监测到`obj`的下层变动：
 
-==（但是这里会有一个问题就是 `val.name` 和 `oldVal.name` 它俩的输出值是一样的，这个问题我们在 `06 Vue computed结合watch监听对象其一属性值的变化`中在进行讲解，这里我们只讲解如何使用 `deep` 属性）==
+==（但是这里会有一个问题就是 `val.name` 和 `oldVal.name` 它俩的输出值是一样的，这个问题我们在 `06 Vue computed结合watch监听对象其一属性值的变化`中在进行讲解，这里我们只讲解如何使用 `deep` 属性来达到监听对象变化的功能）==
 ```
 <template>
   <div>
