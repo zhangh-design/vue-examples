@@ -77,4 +77,13 @@ export default {
 
 `handler`表示需要调用的方法。
 
+##### 注意：
+`watch`观察的对象不能用箭头函数，否则`this`是`undefined`。
 
+```
+watch: {
+    'obj.name': ()=>{
+        console.info(this); //undefined
+    }
+}
+```
