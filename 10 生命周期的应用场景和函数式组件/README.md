@@ -127,7 +127,7 @@
     :var1="`hello ${name}`"
     :var2="destroyClock ? 'hello vue' : 'hello world'"
     >
-      <template v-slot="{ var1, var2 }">
+      <template v-slot:default="{ var1, var2 }">
         {{ var1 }}
         {{ var2 }}
       </template>
