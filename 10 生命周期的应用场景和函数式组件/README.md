@@ -122,9 +122,21 @@
 
 
 ```
+<template>
+  <TempVar
+    :var1="`hello ${name}`"
+    :var2="destroyClock ? 'hello vue' : 'hello world'"
+    >
+      <template v-slot="{ var1, var2 }">
+        {{ var1 }}
+        {{ var2 }}
+      </template>
+  </TempVar>
+</template>
 export default {
   functional: true,
   render: (h, ctx) => {
+    // 去调用作用域插槽函数并传递参数var1，var2
     return ctx.scopedSlots.default && ctx.scopedSlots.default(ctx.props || {});
   }
 };
