@@ -1,3 +1,77 @@
+## render函数中怎么使用插槽slot和作用域插槽scopedSlots
+
+#### 默认插槽
+
+```
+<template>
+  <div>
+    <slot></slot>
+  </div>
+</template>
+```
+
+```
+render: function(createElement){
+    // `<div><slot></slot></div>`
+    return createElement('div', this.$slots.default)
+}
+```
+
+#### 具名插槽
+
+```
+<template>
+  <div>
+    <slot name="header"></slot>
+  </div>
+</template>
+```
+
+```
+render: function(createElement){
+    // `<div><slot name="header"></slot></div>`
+    return createElement('div', this.$slots.header)
+}
+```
+
+#### 作用域插槽
+
+TodoList.vue
+```
+ render: function (createElement) {
+    data(){
+      return {
+        user: { name: '小猫咪', status: false }
+      }
+    },
+    return createElement('div',{
+      this.$scopedSlots.preIcon(this.user)
+    })
+ }
+```
+
+Index.vue
+
+```
+<template>
+  <todo-list>
+    <template v-slot:preIcon="{name, status}">
+      <h1 v-if="awesome">Vue is awesome!</h1>
+      <span v-if="status">跑步</span>
+      <span v-else>散步</span>
+    </template>
+  </todo-list>
+</template>
+```
+
+---
+
+
+
+#### 综合示例：
+
+RenderItem.js
+```
 var grandsonNode = {
   mounted () {},
   render: function (createElement) {
@@ -83,3 +157,8 @@ var parentNode = {
 };
 
 export { grandsonNode, childNode, parentNode };
+
+```
+
+
+
