@@ -20,7 +20,7 @@
 this.$emit('update:foo', newValue)
 ```
 
-demo：
+#### sync单个值demo：
 
 父组件Index.vue：
 ```
@@ -78,5 +78,69 @@ export default {
 </script>
 ```
 
+#### sync对象的demo：
+
+父组件Index.vue：
+
+```
+<template>
+  <div>
+    <!--v-bind.sync传递某个对象-->
+    <child v-bind.sync="doc"></child>
+  </div>
+</template>
+
+<script>
+import Child from './Child.vue'
+export default {
+  components: {
+    Child
+  },
+  data () {
+    return {
+      doc: {
+        one: '语文',
+        two: '数学',
+        three: '科学'
+      }
+    }
+  },
+  mounted () {}
+}
+</script>
+
+```
+
+子组件Child.vue：
 
 
+```
+<template>
+  <div>
+    {{one}}
+    {{two}}
+    {{three}}
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    // 分别接收对象中的每个值
+    one: { type: String },
+    two: { type: String },
+    three: { type: String }
+  },
+  data () {
+    return {};
+  },
+  mounted () {
+    setTimeout(() => {
+      // 改变对象中的某一个值
+      this.$emit('update:one', '英语')
+    }, 2000);
+  }
+};
+</script>
+
+```
