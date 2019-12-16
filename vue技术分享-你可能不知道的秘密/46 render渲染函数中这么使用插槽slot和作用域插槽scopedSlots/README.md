@@ -70,6 +70,30 @@ Index.vue
 
 #### 综合示例：
 
+```
+<template>
+  <parent-node ref="parent-ref">
+    <template v-slot:normal_name_slot>
+      <p>子组件插槽</p>
+    </template>
+    <template v-slot:scope_slot="num">
+      <p>作用域插槽{{num}}</p>
+    </template>
+    <template v-slot:default>
+      <p>默认插槽</p>
+    </template>
+  </parent-node>
+</template>
+<script>
+import { parentNode } from './RenderItem.js';
+export default {
+  components: {
+    parentNode
+  },
+}
+</script>
+```
+
 RenderItem.js
 ```
 var grandsonNode = {
