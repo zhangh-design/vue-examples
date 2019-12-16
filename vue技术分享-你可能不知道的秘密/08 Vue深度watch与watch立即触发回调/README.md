@@ -12,7 +12,7 @@
 
 
 ```
-atch: {
+watch: {
     obj: {
         handler(val, oldVal) {
         	console.log('属性变化触发这个回调',val, oldVal);
