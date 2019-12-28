@@ -32,6 +32,8 @@
 
 我们最开始其实就是我们的`Store`，`Store`里面我们是如何做到我们的响应式的
 实际上它还是使用了`Vue`我们通过 `new Vue`来去把我们的`state`其实是放在了我们`Vue`的这个`data`下面这样的话我们的`state`就已经间接的变成了一个响应式的数据其实它的核心代码就是这么简单你可以认为最最核心的就是这五行代码然后接下来就是我们的一个`commit`，我们的`commit`就是我们的`Store`然后去进行改变数据的`Commit`的时候其实我们可以理解为其实就是在调用我们`mutations`上面的一个方法然后我们把我们的一个`state`值还有我们`commit`的时候传递的这个`payload`提供的额外的一个参数都可以传递过来那`Object.defineProperties`是干什么的呢？我们现在我们的响应式数据挂载到了`Vue`的这个实例下面这个`state`里面，那我们去访问的时候我们平时是在访问的是`this.$state`那我们如何去访问到`new Vue`实例里面的`$$state`数据呢那就是我们这个`Object.defineProperties`提供的这个功能这里面我们从写了它这个`get`值我们每次去`get`这个`state`的值的时候实际上是访问的这个`this._vm` ，`Vue`的实例下面的这个`data`里面的这个`state`的值。
+
+min-vuex.js
 ```
 import Vue from 'vue'
 const Store = function Store (options = {}) {
