@@ -71,6 +71,27 @@ new Vue({
 }).$mount('#app')
 ```
 
+```
+import Vue from 'vue'
+import Vuex from 'vuex'
+import cart from './modules/cart'
+import products from './modules/products'
+
+Vue.use(Vuex)
+export default new Vuex.Store({
+  state: {
+    userInfo: {
+      email: 'xxxxxx@qq.com'
+    }
+  },
+  modules: {
+    cart,
+    products
+  }
+})
+
+```
+
 我们接着看我们的`APP.vue`这个组件的话就是我们整个的根组件，那最开始就是我们的购物车示例的`title`那接着是我们的账号那账号的这个`email`信息就是通过我们的这个`mapState`然后去取的，`mapState`就是从我们的一个`state`里面
 `userInfo.email`里面去取的这样一个`email`的信息，接下来是我们的一个产品清单这个是单独的一个组件。
 
@@ -116,7 +137,7 @@ export default {
 
 我们分别来看一下这两个组件
 
-第一个是我们的列表`ProductList.vue`就像我们在浏览器中看到的最开始就是通过我们的一个`v-for`一个`for`循环输出我们的这个产品`products`列表，那这个`products`也是通过这样的一个`state.products.all`这个等会我们从`store`里面去看一下我们的整一个结构你就可以明白我们为什么是这样一个写法了，我们除了我们现在的这种写法去使用`mapState`之外那如果你不使用`mapState`那你就要用我下面注释的`computed`计算属性代码那这一段代码上面的代码最终你可以认为它是一致的，但是这样写话我们会发现我们的代码会冗余这一个`state.products.all`还好如果多个的话我们使用`mapState`可以在`computed`计算属性中一个一个罗列下去，如果说你不用`mapState`的话那你就要写多个的计算属性了，那接着看回到我们的一个组件模板`{{ product.title }}`这里是我们产品的一个`title`产品的一个`price`就是我们前端页面显示的效果，接下来是我们的一个`button`那`button`的话它这个`disabled`是通过我们的这个`product`里面的有一个字段`inventory`就是它的一个余额，那如果说已经没有剩余量了那我们就把按钮置灰掉变成不可点的，我们点击事件的时候添加购物车的这样一个`Action`如果我们用`mapActions`的一个简写方法的话是这样子写的`methods: mapActions('cart', ['addProductToCart'])`那第一个参数是我们的一个命名空间，那如果说你不用简写方法的话那是我下面注释的这个方法大家也能看得到就是我们的`this.$store.dispatch('cart/addProductToCart', product)`这样的一个形式，最后有一个`created`我们组件的生命周期里面去`dispatch('products/getAllProducts')`获取我们所有的一个商品。
+第一个是我们的列表`ProductList.vue`就像我们在浏览器中看到的最开始就是通过我们的一个`v-for`一个`for`循环输出我们的这个产品`products`列表，那这个`products`也是通过这样的一个`state.products.all`这个等会我们从`store`里面去看一下我们的整一个结构你就可以明白我们为什么是这样一个写法了，我们除了我们现在的这种写法去使用`mapState`之外那如果你不使用`mapState`那你就要用我下面注释的`computed`计算属性代码那这一段代码上面的代码最终你可以认为它是一致的，但是这样写我们会发现我们的代码会冗余这一个`state.products.all`还好如果多个的话我们使用`mapState`可以在`computed`计算属性中一个一个罗列下去，如果说你不用`mapState`的话那你就要写多个的计算属性了，那接着看回到我们的一个组件模板`{{ product.title }}`这里是我们产品的一个`title`产品的一个`price`就是我们前端页面显示的效果，接下来是我们的一个`button`那`button`的话它这个`disabled`是通过我们的这个`product`里面的有一个字段`inventory`就是它的一个余额，那如果说已经没有剩余量了那我们就把按钮置灰掉变成不可点的，我们点击事件的时候添加购物车的这样一个`Action`如果我们用`mapActions`的一个简写方法的话是这样子写的`methods: mapActions('cart', ['addProductToCart'])`那第一个参数是我们的一个命名空间，那如果说你不用简写方法的话那是我下面注释的这个方法大家也能看得到就是我们的`this.$store.dispatch('cart/addProductToCart', product)`这样的一个形式，最后有一个`created`我们组件的生命周期里面去`dispatch('products/getAllProducts')`获取我们所有的一个商品。
 
 ProductList.vue
 ```
@@ -251,7 +272,7 @@ export default new Vuex.Store({
 
 ```
 
-我们分别来看一下我们的模块，我们还是先看我们产品`products`这个模块，我们这里也是同时提供了我们的`state`、`getters`、`actions`、`mutations`，这里`export`导出模块的时候多了一个`namespaced`就是我们开启我们命名空间的一个属性你只要把这个置位`true`然后就开启了命名空间。
+我们分别来看一下我们的模块，我们还是先看我们产品`products`这个模块，我们这里也是同时提供了我们的`state`、`getters`、`actions`、`mutations`，这里`export`导出模块的时候多了一个`namespaced`就是我们开启我们命名空间的一个属性你只要把这个置为`true`然后就开启了命名空间。
 
 ```
 import shop from '../../api/shop'
@@ -328,9 +349,9 @@ export default {
 ```
 
 
-那接下来使我们的`cart`模块，这个`cart`的话同样也是提供了我们一个`state`、`getters`、`actions`、`mutations`同样也是开启了我们的命名空间，这个稍微复杂一些了，那我们的`getters`啊第一个就是获取我们已经添加到购物车的一个列表，第二个是我们计算添加到购物车的整个列表的一个总价格。
+那接下来是我们的`cart`模块，这个`cart`的话同样也是提供了我们一个`state`、`getters`、`actions`、`mutations`同样也是开启了我们的命名空间，这个稍微复杂一些了，那我们的`getters`啊第一个就是获取我们已经添加到购物车的一个列表，第二个是我们计算添加到购物车的整个列表的一个总价格。
 
-那`actions`的话第一个`checkout`是提交我们的结算就是提交我们的购物车，那这里面的话最开始我们是先把我们添加到购物车的一个数据进行了一个复制然后我们通过`commit`更改这个状态为`null`接着我们是把我们这个已经添加到购物车的把它置为空数组，开始去调用我们的一个接口那如果成功了购物车的状态置为`successful`，如果失败了然后就置为`failed`那如果说失败了我们还把我们之前备份的数据从新恢复我们的一个清单列表
+那`actions`的话第一个`checkout`是提交我们的结算就是提交我们的购物车，那这里面的话最开始我们是先把我们添加到购物车的一个数据进行了一个复制然后我们通过`commit`更改这个状态为`null`接着我们是把我们这个已经添加到购物车的把它置为空数组，开始去调用我们的一个接口那如果成功了购物车的状态置为`successfull`，如果失败了然后就置为`failed`那如果说失败了我们还把我们之前备份的数据从新恢复我们的一个清单列表
 
 那接下来是我们这个`addProductToCart`就是添加商品去我们购物车，最开始也是把我们的状态置为`null`，然后我们开始去通过我们传递过来的一个`product`去查找购物车里面是否已经添加过了这个同类商品那如果已经添加过了对它执行的是一个加1的操作，那如果是没有添加过我们执行的是我们一个`push`的操作就是在我们的购物车里面直接`push`一个新商品，那最后的话我们添加完之后还要对我们的这个商品列表`products`里面去进行一个减1的操作那这个地方我们就和其它的有点不同了你会看到我们这里有加了一个命名空间`products`那如果说我们要在`cart`这个模块中要调用其它模块的一个`mutations`的话那我们需要这种形式而且第三个参数我们要把这个`root`置为`true`，通过这样的话我们就可以调用到我们不同模块的这个`mutations`。
 
@@ -436,7 +457,7 @@ export default {
 
 
 #### 结语
-好通过我们刚才的一个示例我们基本上对我们的一个`Vuex`它的一些推荐的写法包括我们的一个命名空间包括我们的一个`mapXxx`的一个系列有了一个进一步的认识，那这一块的还希望大家课后自己去多练习尤其是我们`mapXxx`的一个系列它的一个参数写法很多样化，这块还需要靠大家自己去看一下。
+好通过我们刚才的一个示例我们基本上对我们的一个`Vuex`它的一些推荐的写法包括我们的一个命名空间包括我们的一个`mapXxx`的一个系列有了一个进一步的认识，那这一块的话还希望大家课后自己去多练习尤其是我们`mapXxx`的一个系列它的一个参数写法很多样化，这块还需要靠大家自己去看一下。
 
 
 课后习题：
