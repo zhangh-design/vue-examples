@@ -163,13 +163,282 @@ export default {
 
 ```
 
-那接下来是我们购物清单的这样一个组件
+那接下来是我们购物清单的这样一个组件，最开始的时候我们会判断`products`购物清单里面有没有产品，如果没有的话显示的是 请添加产品到购物车 ，那有的话我们依然是用`v-for`去输出去展示我们已经添加到购物车的一个数据，下面是我们的一个合计`total`这个`total`是通过我们的这样一个`mapGetters`
+去获取到的第一个参数同样也是一个命名空间，这上面的三个`computed`计算属性啊我们这种写法它是`ES6`的一个扩展运算符那大家如果对`ES6`不是很熟悉的话这一块可以去补一下知识，它这样的一个写法其实等价于我下面注释的`computed`内的写法，那如果说你看着上面不是很好理解的话那结合着下面我注释的代码去理解会方便理解这样的一个事情。
+
+那最后是我们的一个提交，提交的时候也是调用我们的这个`checkout`，那`checkout`是一个方法也是通过`dispatch`带有一个命名空间，那整个命名空间的话我们看它的形式是和我们的`url`的结构是有点类似的都是通过这样一个`/`的形式。
+
 
 ShoppingCart.vue
 ```
+<template>
+  <div class="cart">
+    <h2>清单</h2>
+    <p v-show="!products.length"><i>请添加产品到购物车</i></p>
+    <ul>
+      <li
+        v-for="product in products"
+        :key="product.id">
+        {{ product.title }} - {{ product.price }} x {{ product.quantity }}
+      </li>
+    </ul>
+    <p>合计: {{ total }}</p>
+    <p><button :disabled="!products.length" @click="checkout(products)">提交</button></p>
+    <p v-show="checkoutStatus">提交 {{ checkoutStatus }}.</p>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState({
+      checkoutStatus: state => state.cart.checkoutStatus
+    }),
+    ...mapGetters('cart', {
+      products: 'cartProducts',
+      total: 'cartTotalPrice'
+    })
+    // ...mapGetters({
+    //   products: 'cart/cartProducts',
+    //   total: 'cart/cartTotalPrice'
+    // })
+  },
+  // computed: {
+  //   checkoutStatus(){
+  //     return this.$store.state.cart.checkoutStatus
+  //   },
+  //   products() {
+  //     return this.$store.getters['cart/cartProducts']
+  //   },
+  //   total() {
+  //     return this.$store.getters['cart/cartTotalPrice']
+  //   }
+  // },
+  methods: {
+    checkout (products) {
+      this.$store.dispatch('cart/checkout', products)
+    }
+  }
+}
+</script>
+
+```
+
+那我们看完了组件我们就去看我们的这个`store`：
+
+那`store`我们的这个入口文件就是我们把我们的一个`cart`模块还有我们的`products`模块引入进来然后注册到我们的这个`modules`上面然后就可以了，这里我们还提供了一个根状态就是我们的`userInfo`那这块的话我们的用户信息啊一般都会存放在我们的一个根状态上面。
+
+
+```
+import Vue from 'vue'
+import Vuex from 'vuex'
+import cart from './modules/cart'
+import products from './modules/products'
+
+Vue.use(Vuex)
+export default new Vuex.Store({
+  state: {
+    userInfo: {
+      email: 'xxxxxx@qq.com'
+    }
+  },
+  modules: {
+    cart,
+    products
+  }
+})
+
+```
+
+我们分别来看一下我们的模块，我们还是先看我们产品`products`这个模块，我们这里也是同时提供了我们的`state`、`getters`、`actions`、`mutations`，这里`export`导出模块的时候多了一个`namespaced`就是我们开启我们命名空间的一个属性你只要把这个置位`true`然后就开启了命名空间。
+
+```
+import shop from '../../api/shop'
+import { PRODUCTS } from '../mutation-types'
+
+// initial state
+const state = {
+  all: []
+}
+
+// getters
+const getters = {}
+
+// actions
+const actions = {
+  getAllProducts ({ commit }) {
+    shop.getProducts(products => {
+      commit(PRODUCTS.SET_PRODUCTS, products)
+    })
+  }
+}
+
+// mutations
+const mutations = {
+  [PRODUCTS.SET_PRODUCTS] (state, products) {
+    state.all = products
+  },
+
+  [PRODUCTS.DECREMENT_PRODUCT_INVENTORY] (state, { id }) {
+    const product = state.all.find(product => product.id === id)
+    product.inventory--
+  }
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
+}
+
+```
+
+我们分别看一下`state`里面有个`all`，`all`就是我们整个的一个产品的列表最开始初始是一个空数组，`actions`是`getAllProducts`这是获取我们的一个所有的产品我们通过这样的一个接口获取到产品之后我们通过`commit`的一个形式去调用我们的`mutations`然后去把我们的`state.all`重新赋值把我们的`products`赋值给我们的`all`，那这个接口啊`shop.getProducts`它比较简单这个它就是模拟了我们的`ajax`请求在这里面去做了一个`setTimeout`的一个延时去模拟我们的一个请求，那下面还有一个`buyProducts`购买产品的一个模拟接口那这里的话它有一个随机数就是我大于0.5的时候然后去调用我第一个`callback`，如果小于等于0.5的时候我们调用我们的这个`errorCb`这主要是为了模拟我们真实的一个环境，那`mutations`里面我们还有一个`DECREMENT_PRODUCT_INVENTORY`这个的话它是为了做我们的一个商品减一的一个操作，添加到购物车清单之后把我们的商品进行一个减一的操作。
+
+
+shop.js
+```
+/**
+ * Mocking client-server processing
+ */
+const _products = [
+  { 'id': 1, 'title': '华为 Mate 20', 'price': 3999, 'inventory': 2 },
+  { 'id': 2, 'title': '小米 9', 'price': 2999, 'inventory': 0 },
+  { 'id': 3, 'title': 'OPPO R17', 'price': 2999, 'inventory': 5 }
+]
+
+export default {
+  getProducts (cb) {
+    setTimeout(() => cb(_products), 100)
+  },
+
+  buyProducts (products, cb, errorCb) {
+    setTimeout(() => {
+      // simulate random checkout failure.
+      Math.random() > 0.5
+        ? cb()
+        : errorCb()
+    }, 100)
+  }
+}
 
 ```
 
 
+那接下来使我们的`cart`模块，这个`cart`的话同样也是提供了我们一个`state`、`getters`、`actions`、`mutations`同样也是开启了我们的命名空间，这个稍微复杂一些了，那我们的`getters`啊第一个就是获取我们已经添加到购物车的一个列表，第二个是我们计算添加到购物车的整个列表的一个总价格。
+
+那`actions`的话第一个`checkout`是提交我们的结算就是提交我们的购物车，那这里面的话最开始我们是先把我们添加到购物车的一个数据进行了一个复制然后我们通过`commit`更改这个状态为`null`接着我们是把我们这个已经添加到购物车的把它置为空数组，开始去调用我们的一个接口那如果成功了购物车的状态置为`successful`，如果失败了然后就置为`failed`那如果说失败了我们还把我们之前备份的数据从新恢复我们的一个清单列表
+
+那接下来是我们这个`addProductToCart`就是添加商品去我们购物车，最开始也是把我们的状态置为`null`，然后我们开始去通过我们传递过来的一个`product`去查找购物车里面是否已经添加过了这个同类商品那如果已经添加过了对它执行的是一个加1的操作，那如果是没有添加过我们执行的是我们一个`push`的操作就是在我们的购物车里面直接`push`一个新商品，那最后的话我们添加完之后还要对我们的这个商品列表`products`里面去进行一个减1的操作那这个地方我们就和其它的有点不同了你会看到我们这里有加了一个命名空间`products`那如果说我们要在`cart`这个模块中要调用其它模块的一个`mutations`的话那我们需要这种形式而且第三个参数我们要把这个`root`置为`true`，通过这样的话我们就可以调用到我们不同模块的这个`mutations`。
+
+```
+import shop from '../../api/shop'
+import { CART, PRODUCTS } from '../mutation-types'
+
+// initial state
+// shape: [{ id, quantity }]
+const state = {
+  items: [],
+  checkoutStatus: null
+}
+
+// getters
+const getters = {
+  cartProducts: (state, getters, rootState) => {
+    return state.items.map(({ id, quantity }) => {
+      const product = rootState.products.all.find(product => product.id === id)
+      return {
+        title: product.title,
+        price: product.price,
+        quantity
+      }
+    })
+  },
+
+  cartTotalPrice: (state, getters) => {
+    return getters.cartProducts.reduce((total, product) => {
+      return total + product.price * product.quantity
+    }, 0)
+  }
+}
+
+// actions
+const actions = {
+  checkout ({ commit, state }, products) {
+    const savedCartItems = [...state.items]
+    commit(CART.SET_CHECKOUT_STATUS, null)
+    // empty cart
+    commit(CART.SET_CART_ITEMS, { items: [] })
+    shop.buyProducts(
+      products,
+      () => commit(CART.SET_CHECKOUT_STATUS, 'successful'),
+      () => {
+        commit(CART.SET_CHECKOUT_STATUS, 'failed')
+        // rollback to the cart saved before sending the request
+        commit(CART.SET_CART_ITEMS, { items: savedCartItems })
+      }
+    )
+  },
+
+  addProductToCart ({ state, commit }, product) {
+    commit(CART.SET_CHECKOUT_STATUS, null)
+    if (product.inventory > 0) {
+      const cartItem = state.items.find(item => item.id === product.id)
+      if (!cartItem) {
+        commit(CART.PUSH_PRODUCT_TO_CART, { id: product.id })
+      } else {
+        commit(CART.INCREMENT_ITEM_QUANTITY, cartItem)
+      }
+      // remove 1 item from stock
+      commit(`products/${PRODUCTS.DECREMENT_PRODUCT_INVENTORY}`, { id: product.id }, { root: true })
+    }
+  }
+}
+
+// mutations
+const mutations = {
+  [CART.PUSH_PRODUCT_TO_CART] (state, { id }) {
+    state.items.push({
+      id,
+      quantity: 1
+    })
+  },
+
+  [CART.INCREMENT_ITEM_QUANTITY] (state, { id }) {
+    const cartItem = state.items.find(item => item.id === id)
+    cartItem.quantity++
+  },
+
+  [CART.SET_CART_ITEMS] (state, { items }) {
+    state.items = items
+  },
+
+  [CART.SET_CHECKOUT_STATUS] (state, status) {
+    state.checkoutStatus = status
+  }
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
+}
+
+```
 
 
+对这个就是我们整个的购物车列表，打开浏览器我们体验一下，现在我们可以添加购物车，添加完之后你会发现我清单里面已经多了一个华为的商品，我现在添加小米9现在是没有货的，添加一个OPPO，如果我在添加一个华为你会发现这个华为是直接 X2 的一个操作而不是直接`push`，那华为我们现在是只有两件商品那这时候现在它这个商品加入购物车的按钮是已经被置灰掉了你不能在点了，那这时候我们可以直接点提交按钮看到现在是提交失败那是因为我们刚才看到的是一个随机数，显然这个随机数是小于等于0.5的那我们就是走了我们一个`errorCb`的回调，我在点击一次这次随机数大于0.5了显示success了，成功之后我们购物车的一个清单被清空掉了。
+
+
+#### 结语
+好通过我们刚才的一个示例我们基本上对我们的一个`Vuex`它的一些推荐的写法包括我们的一个命名空间包括我们的一个`mapXxx`的一个系列有了一个进一步的认识，那这一块的还希望大家课后自己去多练习尤其是我们`mapXxx`的一个系列它的一个参数写法很多样化，这块还需要靠大家自己去看一下。
+
+
+课后习题：
+
+扩展购物车示例，提供单次添加 1-N 的数量到购车车的功能。
