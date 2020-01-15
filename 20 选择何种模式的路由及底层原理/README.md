@@ -1,0 +1,38 @@
+## 选择何种模式的路由及底层原理
+
+> 前言：上节课我们介绍了我们路由的使用方式，那这节课的话我们介绍下路由的类型以及它的一个底层原理。
+
+路由的类型一共是分为两种：
+1. Hash 模式：丑，无法使用锚点定位
+2. History 模式：需要后端配合，IE9不兼容（可使用强制刷新处理）
+
+
+那我们上一节课的话我们是使用了我们的一个`Hash`模式，我们可以看一下我们上节课的一个`url`的长相，你会看到我们的`url`都会有一个`#`号这就是我们`Hash`的一个模式我们在点击跳转的时候都是带有一个`#`号的，它有一个什么样的特点呢就是很多人不喜欢看的这一个`#`号觉得丑这也是业界一个谈不上的一个缺点吧，但是的确很多人有这个强迫症，还有一个的话就是我们没办法使用我们的锚点定位了我们知道我们的`Hash`是有一个我们浏览器会自带的一个效果就是我们点我们的`a`链接上面的一个`Hash`的时候会自动定位到我们`id`为这个`Hash`的位置，那如果说我们这个`Hash`啊已经被用作路由了这个我们的锚点定位就使用不了了。
+
+![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMaz7I7RcMoTmIBCFzmFnT6nX*bqTuddvvx5NJW6kCnVkiWsY0QMqbkFP9v0Ax2wH6*F8eJmjtKmZ3WnrGhUlzugA!/b&bo=sAEfAQAAAAARB58!&rf=viewer_4&t=5)
+
+
+那除了这种模式的话就是还有一种我们的`History`的一个模式，它就是解决了我们对`Hash`模式丑的一个缺点然后我们也可以继续使用我们的一个锚点定位了但是它有一个问题就是我们需要我们的后端的一个配合还有一个`IE9`的不兼容性。
+
+我们看一下上一个的`demo`把它改成`History`模式。
+
+这个很简单我们只需要申明我们实例的时候把它这个`mode`改成我们的`History`就可以了，我们这时候再来看一下我们的页面我们这时候最好刷新一下，好那我们现在看到我们在跳转的时候它已经没有这个`#`号了这样就看的比较清爽一点。
+
+
+```
+const router = new VueRouter({
+  mode: 'history',
+  routes
+})
+```
+![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMa02NREa4UrF*3RzU0lk7WiQ5f0s.D*zg9sOi1eagwBG8xufyYR7Q05t78PcYA9BJ1aKvWdpqqDKizTzOEeDavK8!/b&bo=owE8AQAAAAARB68!&rf=viewer_4&t=5)
+
+那这个`IE9`的不兼容呢它这个问题啊我们同样也有办法解决但就是说没有办法使用我们这样的一个单页面形式了吧，那`IE9`的一个不兼容性的话我们现在处理的一个方式啊就是强制刷新的一个方式当我们路由变化的时候在`IE9`下我们不在是说通过`ajax`的接口然后去访问我们的一个数据然后去渲染还是说使用我们一个强制刷新的一个行为当前的页面url会被我们强制刷新。
+
+我们看一下我们的这个路由的底层原理，这是一个比较精简的图如果说你看过网络上的一些`Vue Router`的源码分析啊你会发现它可能会有一些很复杂不太好理解然后这里我带大家总结了下其实没有大家想象的那么复杂我们可以看一下我们路由其实是通过我们一个`Vue.util.defineReactive_route`这样的一个`API`把每个`router`的信息变成了响应式的那我们通过我们的`router-link`还有`router-push`还有我们的`a`连接啊或者是`浏览器的前进、后退`以及我们的一个`手动更改URL`都会去触发我们源代码里面有一个`updateRoute`，由`updateRoute`里面去改变我们的这个响应式数据那这个响应式数据改变了之后它就会自动的去触发我们的一个`router-view`的更新，那`router-view`里面的话它会根据我们的一个`URL`去匹配到我们想要渲染的一个组件。
+
+
+![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMa0vOBvQzb44bnlfP4UFdBBQQPzR5uRuWvgaThPerTQNRvgac28edsWs2ZWGpGpOszScUb*nruT8qY4Za1*ya7LM!/b&bo=RAN*AQAAAAARBwk!&rf=viewer_4&t=5)
+
+
+其实这样看下来的话你会觉得其实这个整个的原理啊流程图啊还是非常简洁的，好这就是我们这节课的内容。
