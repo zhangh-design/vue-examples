@@ -28,6 +28,7 @@
 ```
 <template>
   <div>
+	  {{name}} <!--仍然可以在视图上输出这个值-->
     <button @click="handleNameChange">change this.name</button>
   </div>
 </template>
@@ -35,10 +36,9 @@
   let name = 'world';
   export default {
     data () {
+			// 建议：如果你的值不想被 Vue 初始化成响应式的，就定义在 return {} 的外面，然后通过 props 在传入到子组件中。
       this.name = name;
-      return {
-          
-      }
+      return {}
     },
     methods: {
         handleNameChange () {
