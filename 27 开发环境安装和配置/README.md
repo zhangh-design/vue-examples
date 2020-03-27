@@ -20,6 +20,11 @@ C:\Users\zhangh>npm -v
 6.13.4
 ```
 
+```
+C:\Users\zhangh>npx --version
+6.13.4
+```
+
 2. 设置 node.js `prefix`（全局）和`cache`（缓存）路径
 
 cmd命令下运行：
