@@ -27,7 +27,7 @@ C:\Users\zhangh>npx --version
 
 2. 设置 node.js `prefix`（全局）和`cache`（缓存）路径
 
-cmd命令下运行：
+cmd命令下运行（win10 要在管理员模式下运行）：
 
 设置缓存文件夹
 
