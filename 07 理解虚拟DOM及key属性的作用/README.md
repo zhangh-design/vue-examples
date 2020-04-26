@@ -4,36 +4,36 @@
 和`Vue`的诞生，虽然我们的课程是`Vue`的课程不过这块内容的话`Vue`和`React`没有太大的区别那它们都是通过引入一个 数据的中间层 `state`  来避免我们直接操作我们的`DOM`那在`Vue`中我们不再关注我们的`DOM`元素而我们需要关注的仅仅是我们的数据`state`所有的事件我们最后操作的对象都应该是我们的数据然后由`Vue`底层来将数据映射到我们的`DOM`上那数据的变化会导致`DOM`的更新而`DOM`的更新变动也会非常耗性能的，影响用户体验的而当数据变化后如何尽可能减少我们的`DOM`更新这就是形成了一个新的难题那这时候 `虚拟DOM` 的概念就被提了出来那我们的数据不是直接反应到真实的`DOM`节点上而是先通过数据和我们的模板生成一个类似`DOM`树的一个结构其实就是一个树结构一个body下面有div有span有p标签其实就是一个树结构但是这个树结构不是真实的`DOM`结构而是通过我们的一个类似`JSON`对象来去保留我们这样一个树形结构的信息那这个`DOM`树的话我们就称之为`虚拟DOM`然后我们经过一定的算法机制来计算出我们`老的DOM树`和我们即将要更新的`DOM树`也就是我们新的DOM树最终我们要改变哪些`DOM`然后我们通过算法来计算出来我们要改变的真实`DOM`通过算法尽可能的复用我们已有的`DOM`减少我们因为`DOM`而带来的性能消耗这样就涉及到了我们两棵DOM树的比对就是我们前一个老的`DOM树`和我们新的`DOM树`它们之间比对我们要查找出来它们之间的差异正常情况下如果按照我们一个正常的比对算法的话那时间复杂度就是`On3`的复杂度那这个复杂度的性能是低的但是考虑到我们前端页面的一个结构的特殊性那我们通常情况下不太会出现跨层级节点的一个移动例如：我们body下面一个div，div下面是一个span那我们这个span大部分的情况下不会说我就更新到了body下面和原来的div成了同一节点当然它也是有可能存在的当我们基于这种假设我们就做出了这样一种比对的算法就是我们只对同层级的节点进行比较就像我们下面（4）图里面画的一样同颜色区域内的进行比较那第一层的进行比较第二层的进行比较而同层中画的橙色的和橙色进行比较蓝色的和蓝色的进行比较那这样我们的时间复杂度就降到了我们的`On1`的复杂度那其实就是把我们所有的`DOM`节点遍历一遍基本上是这样的一种情况。
 
 1.事件操作`DOM`：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/1.png)
+![image](http://i2.tiimg.com/717460/422d022dbeca87df.png)
 
 2.系统越来越复杂后事件操作`DOM`:
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/2.png)
+![image](http://i2.tiimg.com/717460/77edaa71370ea0dc.png)
 
 3.Vue事件，中间层state，DOM元素：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/4.png)
+![image](http://i2.tiimg.com/717460/5313f9fe50b2235c.png)
 
 4.两棵DOM树的比对：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/5.png)
+![image](http://i2.tiimg.com/717460/6e8fa0c3419e99ba.png)
 
 
-那接下来我们通过几个场景来进一步加深理解：
+那接下来我们通过几个场景来进一步加深理解 ：
 
 有下面这样两棵`DOM`树，A的子节点B、C、D那直接变成我们的C、D、B这样的一个节点那映射到我们的`DOM`树的话是这样一种结构就是我们的div代表着我们的A节点就我们图中画的div下面第一个是div第二个是p第三个是span，那p标签下面又有我们的i标签和span标签就是我们图中所画的E和F实际上表达的意思就是说我们同级节点没有相同类型的第一层节点就是我们的根节点只有一个div第二级节点一个div一个p一个span我们用B、C、D来表示就是代表着我们同级节点没有相同类型的节点第三层是我们的E、F一样是一个i和一个span最终我们要把它变成我们2图右侧的这种形式就是把我们的p和我们的这个div做一个交换，交换位置，那么又再次回到我们这个1的图形那我们的目标是把C放到了B前面但是具体怎么移动那我们是直接把我们的这个B节点直接移动到我们的D节点后面呢？这样移动完之后就变成了C、D、E那和我们要的一个结构是一样的还是说先移动C放到了B前面然后在移动我们的D放到了我们的B前面那同样也能达到我们的C、D、E这样的一个效果那具体是怎么移动的呢其实这个我们不用太多的关注这个移动的路径我们要关注的只是说它是移动的还是新建的还是删除的就可以了我们在这里就不在明确它具体的一个移动路径了。
 
 1.场景1（dom树的理解图）：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/6.png)
+![image](http://i2.tiimg.com/717460/da8d626916b9ba59.png)
 
 2.映射到我们的`DOM`树的结构：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/7.png)
+![image](http://i2.tiimg.com/717460/5c173e30e6454555.png)
 
 那我们看一个场景2：
 那这里的代码结构我们就不贴了，其实意思是一样的就是指的我们B、C、D其实就是指的同层节点没有相同类型的简单来说就是原来的C节点和B节点是同层级的那我们现在更新完之后我们变成了C节点变成了B节点的一个子节点那对于这种情况我们并不是说直接把我们的C节点移动到了我们的B节点下面那并不是这样子的（理解为同层比较），而是原来的C节点直接被删除掉连带着C节点的子节点E、F都会被删除掉然后在去B节点下面新建了我们的C、E、F这个问题就是因为同层节点比较的结果在我们比较我们第二层的时候第一层是我们的A节点第二层是我们的B、C、D那就行比较的时候发现我们的C节点不见了那就直接删除，删除完之后直接开始比对我们的第三层直接往下递归去比较到了B节点之后我发现要新增了我们的C节点那我们就直接新增在持续往下就新增我们的E和F，那从这也能看出算法呢它并不能达到最优解，那如果说按照我们以前`JQuery`的话我们可能是直接通过操作`DOM`把C节点直接移动到了B节点下面但算法的话它考虑的是一个时间负责度和一个通用性所以说它并不能达到最优解那好在的话我们不用手动去操作我们的`DOM`了。
 
 场景2：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/8.png)
+![image](http://i2.tiimg.com/717460/6188af168b412af7.png)
 
 场景2同层节点比较说明图：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/9.png)
+![image](http://i2.tiimg.com/717460/a32b26cf70cdb9e4.png)
 
 
 > 我们在看下第三中场景：
@@ -41,7 +41,7 @@
 那第三种场景的话我们依然是删除我们的C和E、F，然后新建G和E、F，那主要是因为我们比对我们的第二层节点时候发现的C节点不在了就是原来可能C节点时个div现在变成了span了，我在新的DOM树下面我不需要这个div了然后我就把这个C节点一起删除掉然后去新建了例外一个节点那同样E、F也是新建的它并不能达到合理的复用。
 
 
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/10.png)
+![image](http://i2.tiimg.com/717460/4f8c2ab0e0ff0688.png)
 
 
 
@@ -52,22 +52,22 @@
 
 
 场景4：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/11.png)
+![image](http://i2.tiimg.com/717460/d879bfd776593e59.png)
 
 场景4对应的代码图：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/12.png)
+![image](http://i2.tiimg.com/717460/24c15d9bac6b9a15.png)
 
 
 场景4模拟节点移动图：
 
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/13.png)
+![image](http://i2.tiimg.com/717460/96fb91aa66fccd90.png)
 
 
 场景5：移动（有key）
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/14.png)
+![image](http://i2.tiimg.com/717460/83401742659a9f4b.png)
 
 场景6：插入（有key）
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/07%20%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9FDOM%E5%8F%8Akey%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%9C%E7%94%A8/15.png)
+![image](http://i2.tiimg.com/717460/5495b2aef03520dd.png)
 
 
 那这里面就又回到了我们前面的`todo-list`里面使用到了一个`key`如果我们没有使用`key`的话我们浏览器看到会有一些提示或者报错那我们这里使用的是`item.title`实际上并不严谨因为这个`title`它是一个课程1、课程2
