@@ -14,7 +14,7 @@
 
 > 这块我们来看一个`Demo`：
 
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/09%20%E5%90%88%E7%90%86%E5%BA%94%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8C%E4%BE%A6%E5%90%AC%E5%99%A8/1.jpg)
+![image](http://i1.fuimg.com/717460/5274b9cdfe9b0bbc.jpg)
 
 我们现在是有一个反转字符串的一个`Demo`，我们这个`message`实际上它是一个`hello vue`在初始化的过程中我们已经把它反转看下代码我们用两种方式，一个是计算属性的方式、然后一个是用的是普通的一个方法，那计算属性的话我们只需要把它写在这个`computed` 这个`key`下面去写就可以了，那我们模板中去调用的时候也是直接去引用这个计算属性key`reversedMessage1`值，这个`message`在没有变化的时候它是不会在去执行`reversedMessage1`这个计算属性方法的，然后我们还有一个`reversedMessage2`这个是通过方法然后我们每次数据更新模板更新的时候它都会再次的执行这个方法。
 
@@ -112,7 +112,7 @@ export default {
 </script>
 ```
 好了整体的我们的浏览器基本上就是这样一个效果，每次我点一个按钮都会同步触发一系列的更新这就是我们的一个侦听器，它是一个非常灵活非常通用的`api`，我们在`watcher`中可以执行任何的一个逻辑包括我们的`函数节流`、`Ajax异步的获取数据`、`甚至我们可以去操作一些dom（但是不建议你这么去做）`
-![image](https://github.com/zhangh-design/vue-examples/raw/master/09%20%E5%90%88%E7%90%86%E5%BA%94%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8C%E4%BE%A6%E5%90%AC%E5%99%A8/2.jpg)
+![image](http://i1.fuimg.com/717460/2ef78cc8d47019bc.jpg)
 
 
 那我们的计算属性`computed`和我们的侦听器`watcher`之间有什么区别呢？从字面上看它们两之间并没有一个太大的关系，实际上我们这个计算属性能做到的我们的侦听器`watcher`都能做但是反过来我们的侦听器能做的但是`计算属性`就不可以了。
@@ -123,7 +123,7 @@ export default {
 2. 能用`computed`的较量用`computed`。
 
 但是我们什么时候用侦听器什么时候用计算属性那我们通过一个`demo`来给大家演示一下：
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/09%20%E5%90%88%E7%90%86%E5%BA%94%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8C%E4%BE%A6%E5%90%AC%E5%99%A8/3.jpg)
+![image](http://i1.fuimg.com/717460/4cabb81026cf67dc.jpg)
 
 好我们这个`demo`是我们有一个`firstName`和`lastName`其实这也是官方的一个`demo`看我们直接输入会导致整个的变化它俩的上下一个功能是一样的但是它俩唯一的却别就是我一个是用计算属性实现的一个是用侦听器来实现的我们看一下我们的代码：
 

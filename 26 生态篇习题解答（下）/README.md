@@ -12,7 +12,7 @@
 
 就是我们这里添加了一个数量的控件，我们在这个数量里面可以选择一次添加两个，那我们下面的清单里面就同时出现了两个。
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMa33cVX8nvA6znJYq74J5hGmB5rlyijMyrkX1XcTUEmpyDkTHwJXDHDrpWEbiZM75wuP9rms90XOseVJlE84.1Bw!/b&bo=qgHzAQAAAAARB2k!&rf=viewer_4&t=5)
+![image](http://i1.fuimg.com/717460/e17cc707272f6db8.jpg)
 
 那我们看一下我们的代码：
 

@@ -23,7 +23,8 @@ var example1 = new Vue({
 })
 ```
  **结果**：
-> ![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/03%20Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%EF%BC%9A%E4%BA%8B%E4%BB%B6/1.png)
+ 
+> ![image](http://i2.tiimg.com/717460/425bbfa491df36e0.png)
 
 
 那这里的话我们通过v-on绑定的 click 事件它是一个语句`"counter += 1"` ，那实际上我们大部分情况下更多的是要处理一些复杂的操作，那这时候我们要给这个 click 绑定的是一个方法。

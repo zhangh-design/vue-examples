@@ -2,7 +2,7 @@
 
 > **前言**：组件系统是Vue的另一个重要概念，因为它是一种抽象、允许我们使用小型、独立和通常可复用的组件构建大型应用，仔细想想，几乎任意类型的应用界面都可以抽象为一个组件树：
 
-![image](https://raw.githubusercontent.com/zhangh-design/vue-examples/master/02%20%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80%E5%8F%8A%E7%BB%84%E4%BB%B6%E6%B3%A8%E5%86%8C/1.png)
+![image](http://i2.tiimg.com/717460/170bcc0460d314ce.png)
 
 我们的前端页面基本上都可以把它抽象成一个组件树的结构。
 

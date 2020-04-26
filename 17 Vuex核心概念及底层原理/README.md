@@ -109,7 +109,7 @@ new Vue({
 ```
 好完成了上面的设置后我们看一下我们浏览器的效果：
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMaxJ1NcFXvP80J9QyxyfMAR2XAl2MwC3UbKRs4izyZzOmul*X7dMIfaiuRWFL6y1weUg*l56CE6PumUl9uTq56sg!/b&bo=SQFnAAAAAAARBx8!&rf=viewer_4&t=5)
+![image](http://i2.tiimg.com/717460/3906d56dc5725808.jpg)
 
 那我们点击 `count ++` 按钮发现我们依然完成了这样的一个`Vuex`的状态管理。
 

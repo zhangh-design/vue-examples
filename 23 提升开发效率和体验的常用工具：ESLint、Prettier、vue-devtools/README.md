@@ -21,7 +21,7 @@
 这里我们体验一下你可以随便在你的这样安装好我们的一个插件之后这个插件我们可以通过我们`VSCode`的这样的一个应用商店你可以自己去搜索之后然后你去安装。
 
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMazPnkz3b8tM.zuvvuReFj0wPXBcUytxYPrjztCqopSHS*E8RSb1DZ6LM0PGfqN0bcdXYUUOUi*8LD8QlP5iXzwY!/b&bo=ZQGwAAAAAAARB.Q!&rf=viewer_4&t=5)
+![image](http://i2.tiimg.com/717460/964f285f27c54dba.jpg)
 
 我这边的一个配置可以给大家看一下 settings.json ：
 
@@ -129,7 +129,7 @@ Hello.vue
 'extends': ['plugin:vue/strongly-recommended','@vue/standard'],
 ```
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMaxkn79uBfyBmNgM5Q.uy0j3QoRzlX0bQb9cweMsrlY3C8z*DuOYpr7cq.H*oKaHFthqg7d6t1BaroXMvlPmEdhk!/b&bo=8AIXAQAAAAARB9Q!&rf=viewer_4&t=5)
+![image](http://i2.tiimg.com/717460/4b202c408322dea1.jpg)
 
 
 那我还是建议大家在开发中啊使用这样的一个 强链 推荐的一个方式，虽然说你写代码的时候可能会多写几行代码但是对你后期的维护啊是非常有利的。
@@ -166,7 +166,7 @@ module.exports = {
 它主要是可以给我们提供了集成了我们的`Vuex`的一个调试功能还有我们的一个远程调试包括我们的性能分析，那性能分析的话是我们最近刚刚发布的一个新版本然后提供的，这个`vue-devtools`啊它本身是`Chrome`的一个插件
 应该也不止`Chrome`。
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMa0ju2U8AfLY6KsNN*la64*k0.KvoAacNmDLRGUZth3cTyR.70LO5KsC1OJOFjJPoN0YX74DWpckuv9s3jXfoWYY!/b&bo=eAP0AQAAAAARB74!&rf=viewer_4&t=5)
+![image](http://i2.tiimg.com/717460/b8dcef56aef011c2.jpg)
 
 
 好那这节课我们的工具就先简单的介绍到这，那后续的话还希望大家把这个整个的工具链啊去体验一番包括我现在介绍的可能还只是有限的几个，我个人常用的也是社区比较推荐的，那个还有很多有意思的小工具大家可以自己去探索。

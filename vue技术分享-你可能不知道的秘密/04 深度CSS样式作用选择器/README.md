@@ -66,11 +66,11 @@ export default {
 
 我们在加了 scoped之后样式会自动添加一个hash值，如下：
 
-![image](https://github.com/zhangh-design/vue-examples/blob/master/vue%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB-%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86/04%20%E6%B7%B1%E5%BA%A6CSS%E6%A0%B7%E5%BC%8F%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8/3.jpg)
+![image](http://i1.fuimg.com/717460/af940797e4ad9daf.jpg)
 
 我们看到两个组件的同一个标签`h1`是输出不同颜色的，上面的`Index.vue`的`style`样式中并没有添加`/deep/`关键字，所以输出如下：
 
-![image](https://github.com/zhangh-design/vue-examples/blob/master/vue%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB-%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86/04%20%E6%B7%B1%E5%BA%A6CSS%E6%A0%B7%E5%BC%8F%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8/1.jpg)
+![image](http://i1.fuimg.com/717460/4478758669ed3bcb.jpg)
 
 
 
@@ -87,9 +87,9 @@ export default {
 </style>
 ```
 
-![image](https://github.com/zhangh-design/vue-examples/blob/master/vue%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB-%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86/04%20%E6%B7%B1%E5%BA%A6CSS%E6%A0%B7%E5%BC%8F%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8/2.jpg)
+![image](http://i1.fuimg.com/717460/af28697deeee026a.jpg)
 
-![image](https://github.com/zhangh-design/vue-examples/blob/master/vue%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB-%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E7%A7%98%E5%AF%86/04%20%E6%B7%B1%E5%BA%A6CSS%E6%A0%B7%E5%BC%8F%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8/4.jpg)
+![image](http://i1.fuimg.com/717460/8f81f29a30f83987.jpg)
 
 #### 注意：
 当然`/deep/`换成`>>>`，也可以达到同样的效果但是有些像Sass之类的预处理器无法正确解析>>>。这种情况下你可以使用/deep/操作符取而代之- - - -这是一个>>>的别名，同样可以正常工作。

@@ -24,7 +24,7 @@
 
 这个是我们的内置指令这14种然后罗列出来的我们看一下我们的代码：
 
-![image](https://github.com/zhangh-design/vue-examples/raw/master/11%20%E6%8C%87%E4%BB%A4%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/1.jpg)
+![image](http://i1.fuimg.com/717460/c9dd5c0a5342cdee.jpg)
 
 第一个就是`v-text`我们这里写了一个`hello vue`，但是我们下面包了一个子元素`hello world`但最终我们的页面上显示的还是`hello vue`，这是因为我们的这个指令会把我们子元素下面的所有的内容给替换掉。
 
@@ -203,7 +203,7 @@ v-pre
 
 这五个钩子函数分别在它的不同的生命周期中会在去执行这样的一个钩子函数里面绑定的我们的一些方法，这就是所谓的我们的自定义指令，然后实际上它和生命周期是有一个很大的关系的。
 
-![image](https://github.com/zhangh-design/vue-examples/raw/master/11%20%E6%8C%87%E4%BB%A4%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/2.jpg)
+![image](http://i1.fuimg.com/717460/8a919d32ac38b459.jpg)
 
 
 我们通过一个demo来看一下，这是我们的一个自定义指令它起到的一个作用就是我们看到我们刚才有一个`v-text`它是把我们里面的元素直接全部删除替换掉了，那我们这个指令要做的事情就是我不删除我直接插入，插入一个新的文本节点，我们使用的时候就是`v-append-text`然后等于`"`hello ${number}`"`然后它会插入到我们的这个按钮后面的一个数字，这五个生命周期然后我都在写了打了一定的日志大家可以看一下控制台的输出的情况，打开控制台我们看到先是执行了`bind`然后执行了`inserted`，然后我点击按钮看到执行了`update`和`componentUpdated`的一个回调它的一个周期，我现在点击销毁按钮销毁之后它就执行了`unbind`的一个生命周期，然后我在点击销毁按钮让另一个button按钮挂载，挂载之后又重新执行了`bind`和`inserted`这样的一个情况，这就是我们的自定义指令。
@@ -258,10 +258,10 @@ export default {
 ```
 
 
-![image](https://github.com/zhangh-design/vue-examples/raw/master/11%20%E6%8C%87%E4%BB%A4%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/3.jpg)
+![image](http://i1.fuimg.com/717460/72d6aae1ea980dc5.jpg)
 
-![image](https://github.com/zhangh-design/vue-examples/raw/master/11%20%E6%8C%87%E4%BB%A4%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/4.jpg)
+![image](http://i1.fuimg.com/717460/e82c89f5c77f58bc.jpg)
 
-![image](https://github.com/zhangh-design/vue-examples/raw/master/11%20%E6%8C%87%E4%BB%A4%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88/6.jpg)
+![image](http://i1.fuimg.com/717460/0e0e231e17db80fa.jpg)
 
 

@@ -18,3 +18,5 @@ context.default 相当于 context.slots().default
 </smart-item>
 ```
 children 会返回给你两个段落标签，而 slots().default 只会传递第二个匿名段落标签。
+
+![image](http://i1.fuimg.com/717460/7a6f2d6338604a19.jpg)

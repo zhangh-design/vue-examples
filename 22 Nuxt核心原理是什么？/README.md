@@ -3,7 +3,7 @@
 > 前言：我们前面章节讲了我们`Nuxt`要去解决的一个问题，那这节课我们来看下`Nuxt`的核心或者说是我们的`SSR`
 的核心原理可能会更加贴切一些好让大家明白整个的运行流程，那即便我们现在不用但我们也需要知道它的一个流程。
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMa.nLsRET029AIQ.0JN39B07iKUFLDR0Hrt.p0ykw7wGu6*OOXhv6AG4RFlVbrjMBf2aJM2MrnU.vOyC4pd2W0N8!/b&bo=UQOrAQAAAAARB8g!&rf=viewer_4&t=5)
+![image](http://i2.tiimg.com/717460/254a58a7cce387ff.jpg)
 
 这是我们`SSR`Vue的一个官网的一个流程图可能很多同学不知道其实我们Vue官网是有一个独立的`SSR`的域名里面有一整套的解决方案。
 
@@ -14,4 +14,4 @@
 那这里有一个更简单的流程图，第一个就是上面的我们不用`SSR`的时候就是直接返回我们一个空壳的`index.html`，使用我们的`SSR`的时候那我们的服务器会根据我们的`URL`通过我们的一个`renderToString`来去渲染我们的组件然后得到的字符串会放到我们的`index.html`然后一起返回给我们的客户端，这是一个非常简单的一个流程图帮助大家去理解。
 
 
-![image](http://m.qpic.cn/psc?/V12UXEll2JjLTU/S1G4*2hi*D5aPIJug2nMa0Z9I5qasWNCcuDNNoYtlT7cyuNuMEXzbUcA*qvfVYmsLFlCo5NnddYzWmgY9GNezGOB.jWbRezynaqomf77tAo!/b&bo=zQKSAQAAAAARB2w!&rf=viewer_4&t=5)
+![image](http://i2.tiimg.com/717460/fd7d98b08e0cfbe8.jpg)
