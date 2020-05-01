@@ -43,7 +43,7 @@ npm config set prefix "F:\Program Files\nodejs\node_global"
 
 会自动生成下面的两个文件夹：
 
-![image](http://i1.fuimg.com/717460/7fccf44ea652dce6.png)
+![image](./1.png)
 
 设置成功后，之后用命令`npm install XXX -g`安装以后模块就在`F:\Program Files\nodejs\node_global`里。
 
@@ -55,7 +55,7 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 这里是`-g`全局安装会把`cnpm`安装在`F:\Program Files\nodejs\node_global`目录下：
 
-![image](http://i1.fuimg.com/717460/46713b43d24a4ff1.jpg)
+![image](./2.jpg)
 
 4. 设置环境变量（非常重要）
 

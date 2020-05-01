@@ -184,7 +184,7 @@ export { grandsonNode, childNode, parentNode };
 
 ```
 
-![image](http://i1.fuimg.com/717460/c4ed6ced795a7d88.jpg)
+![image](./1.jpg)
 
 先说一下函数中的$slots吧,这个用起来很简单,直接获取到组件中对应的插槽虚拟节点.this.$slots.插槽名称.
 

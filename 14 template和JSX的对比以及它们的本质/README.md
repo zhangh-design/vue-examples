@@ -39,14 +39,14 @@
 
 所以说`Vue`它首先推荐你使用`remplate`但是随着我们的系统越来越复杂你难免会碰到一些逻辑复杂的一个情况这时候简单的使用`template`会很吃力去写我们的一些逻辑这时候我们就可以选择使用我们的`JSX`或者是我们的一个存`render`函数。
 
-![image](http://i2.tiimg.com/717460/d9ada62a6796cd3c.jpg)
+![image](./1.jpg)
 
 
 我们通过一个demo来看一下：
 
 这个demo很简单就是我们的一个`hello world`，`hello world`就是通过我们的一个可以看下浏览器控制台我们最终生成的HTML就是`h1`、`h2`、`h3`、`h4`不同层级的标签。
 
-![image](http://i2.tiimg.com/717460/1eff70d192990ff1.jpg)
+![image](./2.jpg)
 
 看下我们的代码：
 
@@ -208,4 +208,4 @@ methods: {
 好我们在看一下为什么他们说不管你是`template`也好`JSX`也好都能满足我们的一个需求实际上它们最终都是会被编译成我们的`createElement`它们只是语法糖而已像我们这个`span`标签我们可以看下我们下面图中的`span`标签你用`template`还是你用`JSX`那最终编译成的都是`createElement`这样的一个标签当你这个层级比较深的时候它依然也是`createElement`的一个层层的嵌套对所以说它只是语法糖而已。
 
 
-![image](http://i2.tiimg.com/717460/485a65369736e43f.jpg)
+![image](./3.jpg)

@@ -66,11 +66,11 @@ export default {
 
 我们在加了 scoped之后样式会自动添加一个hash值，如下：
 
-![image](http://i1.fuimg.com/717460/af940797e4ad9daf.jpg)
+![image](./3.jpg)
 
 我们看到两个组件的同一个标签`h1`是输出不同颜色的，上面的`Index.vue`的`style`样式中并没有添加`/deep/`关键字，所以输出如下：
 
-![image](http://i1.fuimg.com/717460/4478758669ed3bcb.jpg)
+![image](./1.jpg)
 
 
 
@@ -87,9 +87,9 @@ export default {
 </style>
 ```
 
-![image](http://i1.fuimg.com/717460/af28697deeee026a.jpg)
+![image](./2.jpg)
 
-![image](http://i1.fuimg.com/717460/8f81f29a30f83987.jpg)
+![image](./4.jpg)
 
 #### 注意：
 当然`/deep/`换成`>>>`，也可以达到同样的效果但是有些像Sass之类的预处理器无法正确解析>>>。这种情况下你可以使用/deep/操作符取而代之- - - -这是一个>>>的别名，同样可以正常工作。
