@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.3.2",
     "dateformat-util": "^1.0.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "vue": "^2.6.10"
   },
