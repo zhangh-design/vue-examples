@@ -43,7 +43,7 @@ npm config set prefix "F:\Program Files\nodejs\node_global"
 
 会自动生成下面的两个文件夹：
 
-![image](./1.png)
+![image](https://gitee.com/zhangh-design/vue-examples/raw/master/27%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/1.png)
 
 设置成功后，之后用命令`npm install XXX -g`安装以后模块就在`F:\Program Files\nodejs\node_global`里。
 
@@ -55,13 +55,17 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 这里是`-g`全局安装会把`cnpm`安装在`F:\Program Files\nodejs\node_global`目录下：
 
-![image](./2.jpg)
+![image](https://gitee.com/zhangh-design/vue-examples/raw/master/27%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/2.jpg)
 
 4. 设置环境变量（非常重要）
 
 - 系统变量增加`NODE_PATH`值是`F:\Program Files\nodejs`
 - 系统变量编辑`PATH`增加`;%NODE_PATH%`
 - 系统变量编辑`PATH`增加`;F:\Program Files\nodejs\node_global`（这个是为`cnpm`配置的，不配置这个运行`cnpm -v`会出现` 'cnpm' 不是内部或外部的命令`）
+
+win10 请注意，不要加前面的 ; 分号：
+
+![image](./3.bmp)
 
 5. 全局安装vue命令行工具，即vue-cli 脚手架
 
